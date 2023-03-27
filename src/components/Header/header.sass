@@ -1,0 +1,209 @@
+.header
+  position: relative
+
+.header__top
+  padding: 10px 0
+  border-bottom: 1px solid #ECEDF0
+.top-container
+  display: flex
+  justify-content: space-between
+  align-items: center
+.menu
+.dropdown-checkbox
+  position: absolute
+  width: 0
+  height: 0
+  opacity: 0
+  appearance: none
+.menu__btn
+  display: block
+  width: 32px
+  height: 32px
+  border-radius: 50%
+  background-image: url('../../assets/img/header/burger-menu.svg')
+  background-repeat: no-repeat
+  background-position: center
+  background-color: #FFC85E
+.dropdown-checkbox:checked + .menu__btn
+  background-image: url('../../assets/img/header/close.svg')
+.modal
+  position: absolute
+  top: 100%
+  left: 0
+  right: 0
+  display: flex
+  flex-direction: column
+  min-height: calc(100vh - 103px)
+  background-color: rgba(17, 17, 17, .5)
+  visibility: hidden
+  opacity: 0
+  transition: .3s ease-in-out
+.dropdown-checkbox:checked ~ .modal
+  visibility: visible
+  opacity: 1
+.menu__inner
+  display: flex
+  flex-direction: column
+  align-items: flex-start
+  padding: 20px 15px 32px
+  background-color: #fff
+  transform-origin: 0 0
+  transform: scaleY(0)
+  transition: .3s ease-in-out
+.dropdown-checkbox:checked ~ .modal>.menu__inner
+  transform: scaleY(1)
+.close-zone
+  display: none
+  flex: 1 0 
+.dropdown-checkbox:checked ~ .modal>.close-zone
+  display: block
+.contacts-list
+  display: flex
+  flex-direction: column
+  align-items: flex-start
+  gap: 15px
+  margin-bottom: 13px
+.contact
+.contact_address
+  background-image: url('../../assets/img/header/location.svg')
+.contact_email
+  background-image: url('../../assets/img/header/mail.svg')
+.contact_tel
+  background-image: url('../../assets/img/header/phone.svg')
+
+.request-a-call
+  margin-bottom: 25px
+  padding: 10px 0 10px 37px
+  font-size: 10px
+  line-height: 1
+  text-decoration: underline
+  background: url('../../assets/img/header/phone_circle.svg') no-repeat left center / contain
+
+.nav
+  margin-bottom: 22px
+
+.basket
+  position: relative
+  padding: 5px 7px 0px 0
+.basket__count
+  position: absolute
+  left: 12px
+  bottom: 10px
+  display: flex
+  justify-content: center
+  align-items: center
+  aspect-ratio: 1/1
+  min-width: 23px
+  padding: 3.5px
+  border: 3px solid #fff
+  border-radius: 50%
+  color: #fff
+  font-size: 10px
+  line-height: 1
+  font-weight: 700
+  text-align: center
+  background-color: #FFC85E
+
+.header__bottom
+  padding: 13px 0 12px
+  border-bottom: 1px solid #ECEDF0
+  .bottom-container
+    display: flex
+    justify-content: space-between
+    align-items: center
+    padding: 0 45px 0 53px
+.catalog, .search
+  display: flex
+  align-items: center
+  gap: 6px
+  font-size: 12px
+  font-weight: 600
+.search
+
+
+
+
+@media (min-width: 1400px)
+  .header__top
+    padding: 14px 0 13px
+  .contacts-list
+    flex-direction: row
+    gap: 42px
+    margin-bottom: 0
+  .nav
+    margin-bottom: 0
+  
+  .header__bottom
+    padding: 20px 0
+  .logo
+    margin-right: 23px
+  .catalog
+    flex-direction: row-reverse
+    gap: 12px
+    padding: 21px 54px
+    border-radius: 79px
+    font-size: 14px
+    line-height: 17px
+    font-weight: 700
+    color: #fff
+    background-color: #FFC85E
+    path
+      stroke: #fff
+  .search-block
+    margin-right: 20px
+  .phone-block
+    position: relative
+    margin-right: 35px
+    padding-right: 84px
+    &::after
+      content:''
+      position: absolute
+      top: -18px
+      bottom: -9px
+      right: 0
+      width: 70px
+      background: url('../../assets/img/header/call-center-employee.png') no-repeat right top
+  .contact_tel
+    padding: 0
+    text-align: right
+    background: none
+    b
+      display: block
+      margin-bottom: 5px
+      line-height: 21px
+    div
+      line-height: 18px
+  .request-a-call
+    margin: 0
+    padding: 0
+    background: none
+  .header__bottom .price-list-link
+    padding: 21px 44px
+    width: fit-content
+  .delimiter
+    width: 0
+    height: 49px
+    margin: 0 10px
+    border-right: 1px dashed #3F4E65
+    opacity: 0.1
+  .basket-block
+    display: flex
+    align-items: center
+    gap: 14px
+  .basket svg
+    width: 46px
+    height: 46px
+  .basket div
+    left: 28px
+    bottom: 22px
+    min-width: 28px
+    font-size: 14px
+  .basket-title
+    font-size: 12px
+    line-height: 1.5
+    font-weight: 300
+  .basket-value
+    color: #111
+    font-size: 14px
+    line-height: 1.5
+    font-weight: 600

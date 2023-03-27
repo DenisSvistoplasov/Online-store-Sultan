@@ -1,0 +1,97 @@
+.filters
+.filters__title
+  position: relative
+  width: 100%
+  padding: 4px 0
+  font-size: 16px
+  line-height: 1.5
+  font-weight: 500
+  color: #111
+  text-align: left
+  &::after
+    content:''
+    position: absolute
+    right: 0
+    top: 0
+    width: 32px
+    height: 32px
+    border-radius: 50%  
+    background: url('../../assets/img/arrow-tick_left.svg') no-repeat center rgba(255, 202, 101, .3)
+    transform: rotate(-90deg)
+.filters__title.open
+  &::after
+    transform: rotate(-270deg)
+
+.dropdown
+  padding-bottom: 40px
+.price
+  margin-bottom: 30px
+.price__title
+  margin-bottom: 16px
+  font-size: 14px
+  line-height: 1.5
+  font-weight: 300
+  b
+    padding-left: 5px
+    font-weight: 500
+    color: #111
+.price__inputs
+  display: flex
+  align-items: center
+  gap: 10px
+  font-size: 14px
+  font-weight: 500
+.price__input
+  width: 100px
+  padding: 4px 10px
+  border: none
+  border-radius: 1000px
+  text-align: center
+  color: inherit
+  font-size: 12px
+  font-weight: 300
+  background-color: #fec
+.dash
+  width: 4.5px
+  height: 1.2px
+  background-color: #3F4E65
+
+.delimiter
+  width: 238px
+  height: 0
+  margin: 20px 0
+  border-bottom: 1px dashed #3F4E65
+  opacity: 0.3
+
+
+.bottom
+  display: flex
+  justify-content: space-between
+  align-items: center
+  margin-top: 25px
+.apply
+  min-width: 216px
+  padding: 21px 50px
+  border-radius: 79px
+  font-size: 14px
+  line-height: 17px
+  font-weight: 700
+  color: #fff
+  background-color: #FFC85E
+.clear
+  display: flex
+  justify-content: center
+  align-items: center
+  width: 59px
+  height: 59px
+  border-radius: 50%
+  background-color: #FFC85E
+
+
+@media ( min-width: 1400px )
+  .filters
+    margin-bottom: 40px
+  .dropdown
+    padding-bottom: 0
+  .apply
+    min-width: 169px

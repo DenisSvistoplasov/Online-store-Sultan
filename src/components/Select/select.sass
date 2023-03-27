@@ -1,0 +1,34 @@
+.container
+  position: relative
+  width: fit-content
+.btn
+  position: relative
+  display: flex
+  align-items: baseline
+  gap: 5px
+  padding-right: 12px
+.triangle
+  position: absolute
+  top: 50%
+  right: 0
+  font-size: 8px
+  transform: translateY(-50%) scaleY(1)
+  transition: .2s ease-in-out
+  &.open
+    transform: translateY(-50%) scaleY(-1)
+.list
+  position: absolute
+  left: -5px
+  z-index: 1
+  white-space: nowrap
+  background-color: #fff
+.item__btn
+  display: flex
+  justify-content: space-between
+  align-items: baseline
+  gap: 5px
+  width: 100%
+  padding: 5px
+  text-align: left
+  &:hover
+    background-color: #ddf
