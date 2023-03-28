@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styles from './header.sass';
 import { useBreakpoint } from '../../hooks/useBreakpoint';
 import { IconCart } from '../icons/cart';
@@ -10,9 +10,20 @@ import { Nav } from '../Nav';
 import { PriceListLink } from './PriceListLink';
 import { Logo } from '../Logo';
 import { SearchBlock } from './SearchBlock';
+import { useAppDispatch, useAppSelector } from '../../hooks/storeHooks';
+import { selectCartTotalCost, selectCartTotalCount } from '../../store/slices/cartSlice';
+import { getProducts } from '../../store/slices/productsSlice';
+import { fixNumber } from '../../utils/fixNumber';
 
 
 export function Header() {
+  const dispatch = useAppDispatch();
+  const cartTotalCount = useAppSelector(selectCartTotalCount);
+  
+  useEffect(() => {
+    dispatch(getProducts());
+  }, []);
+
   if (useBreakpoint() == 'desktop') return <HeaderDesktop />;
 
   return (
@@ -47,9 +58,9 @@ export function Header() {
 
           <Logo />
 
-          <a href="" className={styles.basket}>
+          <a href="#/basket" className={styles.basket}>
             <IconCart />
-            <div className={styles.basket__count}>3</div>
+            <div className={styles.basket__count}>{cartTotalCount}</div>
           </a>
         </Container>
 
@@ -57,7 +68,7 @@ export function Header() {
 
       <div className={styles.header__bottom}>
         <Container className={styles['bottom-container']}>
-          <a href="" className={styles.catalog}><IconCatalog />Каталог</a>
+          <a href="#/catalog" className={styles.catalog}><IconCatalog />Каталог</a>
           <button className={styles.search}><IconSearchDark />Поиск</button>
         </Container>
       </div>
@@ -66,6 +77,10 @@ export function Header() {
 }
 
 function HeaderDesktop() {
+  const cartTotalCount = useAppSelector(selectCartTotalCount);
+  const cartTotalCost = useAppSelector(selectCartTotalCost);
+
+
   return (
     <header className={styles.header}>
       <div className={styles.header__top}>
@@ -85,7 +100,7 @@ function HeaderDesktop() {
       <div className={styles.header__bottom}>
         <Container className={styles['bottom-container']}>
           <Logo className={styles.logo} />
-          <a href="" className={styles.catalog}><IconCatalog />Каталог</a>
+          <a href="#/catalog" className={styles.catalog}><IconCatalog />Каталог</a>
           <SearchBlock className={styles['search-block']} />
           <div className={styles["phone-block"]}>
             <Contact className={styles.contact_tel} title='+7 (777) 490-00-91' subtitle={<>время работы: 9:00-20:00<div style={{ height: 5 }} /><button className={styles['request-a-call']}>Заказать звонок</button></>} />            
@@ -94,13 +109,13 @@ function HeaderDesktop() {
           <div className={styles.delimiter}>
           </div>
           <div className={styles["basket-block"]}>
-            <a href="" className={styles.basket}>
+            <a href="#/basket" className={styles.basket}>
               <IconCart />
-              <div className={styles.basket__count}>3</div>
+              <div className={styles.basket__count}>{cartTotalCount}</div>
             </a>
             <div className={styles["basket-info"]}>
               <div className={styles["basket-title"]}>Корзина</div>
-              <div className={styles["basket-value"]}>12 478 ₸</div>
+              <div className={styles["basket-value"]}>{fixNumber(cartTotalCost)} ₸</div>
             </div>
           </div>
 

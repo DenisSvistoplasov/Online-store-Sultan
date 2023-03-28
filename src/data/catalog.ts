@@ -1,8 +1,10 @@
 import aosImg from '../assets/img/products/AOS.png';
-import arielImg from  '../assets/img/products/Ariel.png';
+import arielImg from '../assets/img/products/Ariel.png';
 import bimaxImg from '../assets/img/products/BiMax.png';
 import sortiImg from '../assets/img/products/Sorti.png';
 import biomioSoapImg from '../assets/img/products/BioMio-soap.png';
+
+export type productTypes = 'body' | 'face' | 'hands' | 'hair';
 
 export interface IProduct {
   imageUrl: string;
@@ -13,21 +15,15 @@ export interface IProduct {
   manufacturer: string;
   brand: string;
   description: string;
-  price: string;
+  price: number;
   fullDescription: string;
-  type: productTypes[];
+  types: productTypes[];
   isPopular?: boolean;
-}
-
-export const enum productTypes {
-  body,
-  face,
-  hands,
-  hair
+  id: number|string;
 }
 
 
-const defaultCatalog:IProduct[] = [
+const defaultCatalog: IProduct[] = [
   {
     imageUrl: aosImg,
     name: 'AOS',
@@ -38,8 +34,9 @@ const defaultCatalog:IProduct[] = [
     barcode: '4604049097548',
     manufacturer: 'Нэфис',
     brand: 'AOS',
-    price:'48,76 ₸',
-    type: [productTypes.body],
+    price: 48.76,
+    id: 0,
+    types: ['body'],
     isPopular: true
   },
   {
@@ -52,8 +49,9 @@ const defaultCatalog:IProduct[] = [
     barcode: '4604049097548',
     manufacturer: 'Нэфис',
     brand: 'AOS',
-    price:'48,76 ₸',
-    type: [productTypes.face]
+    price: 48.76,
+    id: 1,
+    types: ['face']
   },
   {
     imageUrl: bimaxImg,
@@ -65,8 +63,9 @@ const defaultCatalog:IProduct[] = [
     barcode: '4604049097548',
     manufacturer: 'Нэфис',
     brand: 'AOS',
-    price:'48,76 ₸',
-    type: [productTypes.body, productTypes.face]
+    price: 48.76,
+    id: 2,
+    types: ['body', 'face']
   },
   {
     imageUrl: sortiImg,
@@ -78,8 +77,9 @@ const defaultCatalog:IProduct[] = [
     barcode: '4604049097548',
     manufacturer: 'Нэфис',
     brand: 'AOS',
-    price:'48,76 ₸',
-    type: [productTypes.body]
+    price: 48.76,
+    id: 3,
+    types: ['body']
   },
   {
     imageUrl: biomioSoapImg,
@@ -91,8 +91,9 @@ const defaultCatalog:IProduct[] = [
     barcode: '4604049097548',
     manufacturer: 'Нэфис',
     brand: 'BioMio',
-    price:'48,76 ₸',
-    type: [productTypes.body]
+    price: 48.76,
+    id: 4,
+    types: ['body']
   },
 
   {
@@ -105,8 +106,9 @@ const defaultCatalog:IProduct[] = [
     barcode: '4604049097548',
     manufacturer: 'Boyscout',
     brand: 'Nivea',
-    price:'148,76 ₸',
-    type: [productTypes.hair, productTypes.face]
+    price: 148.76,
+    id: 5,
+    types: ['hair', 'face']
   },
   {
     imageUrl: arielImg,
@@ -118,8 +120,9 @@ const defaultCatalog:IProduct[] = [
     barcode: '4604049097548',
     manufacturer: 'Нэфис',
     brand: 'AOS',
-    price:'38,76 ₸',
-    type: [productTypes.face, productTypes.body, productTypes.hair]
+    price: 38.76,
+    id: 6,
+    types: ['face', 'body', 'hair']
   },
   {
     imageUrl: bimaxImg,
@@ -131,8 +134,9 @@ const defaultCatalog:IProduct[] = [
     barcode: '4604049097548',
     manufacturer: 'Нэфис',
     brand: 'AOS',
-    price:'48,76 ₸',
-    type: [productTypes.hair, productTypes.face]
+    price: 48.76,
+    id: 7,
+    types: ['hair', 'face']
   },
   {
     imageUrl: sortiImg,
@@ -144,8 +148,9 @@ const defaultCatalog:IProduct[] = [
     barcode: '4604049097548',
     manufacturer: 'Нэфис',
     brand: 'AOS',
-    price:'200,76 ₸',
-    type: [productTypes.face]
+    price: 200.76,
+    id: 8,
+    types: ['face']
   },
   {
     imageUrl: biomioSoapImg,
@@ -157,8 +162,9 @@ const defaultCatalog:IProduct[] = [
     barcode: '4604049097548',
     manufacturer: 'Нэфис',
     brand: 'BioMio',
-    price:'134,76 ₸',
-    type: [productTypes.body, productTypes.face]
+    price: 134.76,
+    id: 9,
+    types: ['body', 'face']
   },
 
   {
@@ -171,8 +177,9 @@ const defaultCatalog:IProduct[] = [
     barcode: '4604049097548',
     manufacturer: 'Нэфис',
     brand: 'AOS',
-    price:'248,76 ₸',
-    type: [productTypes.hands, productTypes.body]
+    price: 248.76,
+    id: 10,
+    types: ['hands', 'body']
   },
   {
     imageUrl: arielImg,
@@ -184,8 +191,9 @@ const defaultCatalog:IProduct[] = [
     barcode: '4604049097548',
     manufacturer: 'Нэфис',
     brand: 'AOS',
-    price:'8,76 ₸',
-    type: [productTypes.face, productTypes.hair]
+    price: 8.76,
+    id: 11,
+    types: ['face', 'hair']
   },
   {
     imageUrl: bimaxImg,
@@ -197,8 +205,9 @@ const defaultCatalog:IProduct[] = [
     barcode: '4604049097548',
     manufacturer: 'Нэфис',
     brand: 'AOS',
-    price:'348,76 ₸',
-    type: [productTypes.body, productTypes.hands]
+    price: 348.76,
+    id: 12,
+    types: ['body', 'hands']
   },
   {
     imageUrl: sortiImg,
@@ -210,8 +219,9 @@ const defaultCatalog:IProduct[] = [
     barcode: '4604049097548',
     manufacturer: 'Нэфис',
     brand: 'AOS',
-    price:'48,76 ₸',
-    type: [productTypes.hands, productTypes.face]
+    price: 48.76,
+    id: 13,
+    types: ['hands', 'face']
   },
   {
     imageUrl: biomioSoapImg,
@@ -223,8 +233,9 @@ const defaultCatalog:IProduct[] = [
     barcode: '4604049097548',
     manufacturer: 'Нэфис',
     brand: 'BioMio',
-    price:'48,02 ₸',
-    type: [productTypes.body, productTypes.hair, productTypes.face, productTypes.hands]
+    price: 48.02,
+    id: 14,
+    types: ['body', 'hair', 'face', 'hands']
   },
 
   {
@@ -237,8 +248,9 @@ const defaultCatalog:IProduct[] = [
     barcode: '4604049097548',
     manufacturer: 'Fairy Ltd',
     brand: 'Fairy',
-    price:'848,76 ₸',
-    type: [productTypes.hands, productTypes.body, productTypes.face]
+    price: 848.76,
+    id: 15,
+    types: ['hands', 'body', 'face']
   },
   {
     imageUrl: arielImg,
@@ -250,8 +262,9 @@ const defaultCatalog:IProduct[] = [
     barcode: '4604049097548',
     manufacturer: 'Нэфис',
     brand: 'AOS',
-    price:'8,76 ₸',
-    type: [productTypes.face, productTypes.body]
+    price: 8.76,
+    id: 16,
+    types: ['face', 'body']
   },
   {
     imageUrl: bimaxImg,
@@ -263,8 +276,9 @@ const defaultCatalog:IProduct[] = [
     barcode: '4604049097548',
     manufacturer: 'Нэфис',
     brand: 'AOS',
-    price:'348,76 ₸',
-    type: [productTypes.face, productTypes.hands]
+    price: 348.76,
+    id: 17,
+    types: ['face', 'hands']
   },
   {
     imageUrl: sortiImg,
@@ -276,8 +290,9 @@ const defaultCatalog:IProduct[] = [
     barcode: '4604049097548',
     manufacturer: 'Нэфис',
     brand: 'AOS',
-    price:'48,76 ₸',
-    type: [productTypes.hands, productTypes.face, productTypes.hair, productTypes.body]
+    price: 48.76,
+    id: 18,
+    types: ['hands', 'face', 'hair', 'body']
   },
   {
     imageUrl: biomioSoapImg,
@@ -289,8 +304,9 @@ const defaultCatalog:IProduct[] = [
     barcode: '4604049097548',
     manufacturer: 'Нэфис',
     brand: 'BioMio',
-    price:'48,02 ₸',
-    type: [productTypes.body, productTypes.hair, productTypes.hands]
+    price: 48.02,
+    id: 19,
+    types: ['body', 'hair', 'hands']
   },
 ];
 

@@ -15,6 +15,7 @@ export interface IFilterRestrictions {
 
 interface IFilterProps {
   sendRestrictions: (restrictions: IFilterRestrictions) => void;
+  // restrictions: IFilterRestrictions;
   defaultMinPrice?: number;
   defaultMaxPrice?: number;
   className?: string;
@@ -24,6 +25,7 @@ interface IFilterProps {
 export function Filter(props: IFilterProps) {
   const {
     sendRestrictions,
+    // restrictions,
     defaultMinPrice = 0,
     defaultMaxPrice = 10000,
     className,
@@ -52,7 +54,6 @@ export function Filter(props: IFilterProps) {
   const onClear = () => {
     setChosenBrands([]);
     setChosenManufacturers([]);
-    // onApply();
   };
 
   const onChangeManufacturers = (value: string) => {

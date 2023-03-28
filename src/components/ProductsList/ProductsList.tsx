@@ -3,7 +3,7 @@ import styles from './productslist.sass';
 import { classnames } from '../../utils/classnames';
 import { useAppDispatch, useAppSelector } from '../../hooks/storeHooks';
 import { Product } from './Product/Product';
-import { selectProducts, setProducts } from '../../store/slices/productsSlice';
+import { selectProducts, getProducts } from '../../store/slices/productsSlice';
 import { IProduct } from '../../data/catalog';
 import { pickPaginationPart } from '../../utils/pickPaginationPart';
 import { Pagination } from '../Pagination';

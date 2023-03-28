@@ -1,11 +1,11 @@
 import { PayloadAction, SerializedError, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { IProduct } from "../../data/catalog";
+import { IProduct, productTypes } from "../../data/catalog";
 import { fetchStatus } from "../../types/types";
 import { RootState } from "../store";
 
 const LOCAL_STORAGE_KEY = 'products-data';
 
-export const setProducts = createAsyncThunk<IProduct[]>(
+export const getProducts = createAsyncThunk<IProduct[]>(
   'products/getProducts',
   async () => {
     let data = localStorage.getItem(LOCAL_STORAGE_KEY);
@@ -15,27 +15,26 @@ export const setProducts = createAsyncThunk<IProduct[]>(
   });
 
 
-
 const productsSlice = createSlice({
   name: 'products',
   initialState: {
     data: [] as IProduct[],
     meta: {
-      status: '' as fetchStatus,
+      status: 'loading' as fetchStatus,
       error: '' as string | SerializedError
     }
   },
   reducers: {},
   extraReducers(builder) {
     builder
-      .addCase(setProducts.pending, (state, action) => {
+      .addCase(getProducts.pending, (state, action) => {
         state.meta.status = "loading";
       })
-      .addCase(setProducts.fulfilled, (state, action) => {
+      .addCase(getProducts.fulfilled, (state, action) => {
         state.meta.status = "succeeded";
         state.data = action.payload;
       })
-      .addCase(setProducts.rejected, (state, action) => {
+      .addCase(getProducts.rejected, (state, action) => {
         state.meta.status = "failed";
         state.meta.error = action.error;
       });
@@ -43,7 +42,11 @@ const productsSlice = createSlice({
 });
 export default productsSlice.reducer;
 
+export const selectProductsStatus = (state: RootState) => state.products.meta.status;
 export const selectProducts = (state: RootState) => state.products.data;
+export const selectProductsByIds = (ids: (string | number)[]) => (state: RootState) => {
+  return state.products.data.filter(product => ids.includes(product.id + ''));
+};
 export const selectBrandsAndManufacturers = (state: RootState) => {
   const res = {
     brands: [] as { value: string; count: number; }[],
@@ -67,4 +70,9 @@ export const selectBrandsAndManufacturers = (state: RootState) => {
   }
 
   return res;
+};
+export const selectProductsTypes = (state: RootState) => {
+  const set = new Set<productTypes>();
+  state.products.data.forEach(product => product.types.forEach(t => set.add(t)));
+  return [...set];
 };

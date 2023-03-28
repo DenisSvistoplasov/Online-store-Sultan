@@ -1,0 +1,107 @@
+.product
+  position: relative
+  display: flex
+  flex-direction: column
+.popular
+  position: absolute
+  top: 0
+  left: 0
+  padding: 5px 10.5px
+  border-radius: 5px
+  color: #fff
+  font-size: 10px
+  line-height: 1.5
+  font-weight: 600
+  letter-spacing: 0.045em
+  background-color: #1FD85D
+.img-wrapper
+  display: flex
+  height: 197px
+  margin-bottom: 10px
+.img
+  max-width: 100%
+  max-height: 100%
+  margin: auto auto 0
+
+.text-content
+  margin-bottom: 15px
+.amount
+  display: flex
+  align-items: center
+  gap: 8px
+  margin-bottom: 9px
+  font-size: 12px
+.description
+  margin-bottom: 10px
+  font-size: 20px
+  line-height: 1.2
+  font-weight: 500
+  color: #111
+.product-link:hover
+  @media ( min-width: 1400px )
+    text-decoration: underline
+
+.extra-description
+  font-size: 12px
+  line-height: 1.5
+  font-weight: 300
+
+.controls
+  display: flex
+  justify-content: space-between
+  align-items: center
+.delimiter_vertical
+  width: 0
+  height: 49px
+  border-right: 1px dashed #3F4E65
+  opacity: 0.2
+.cost
+  font-size: 16px
+  font-weight: 700
+  color: #111
+.remove
+  display: flex
+  justify-content: center
+  align-items: center
+  width: 59px
+  height: 59px
+  border-radius: 50%
+  background-color: #FFC85E
+  path
+    stroke: #fff
+    fill: #fff
+    stroke-width: .1
+
+
+
+@media  ( min-width: 1400px )
+  .product
+    flex-direction: row
+    align-items: center
+    gap: 20px
+  .img-wrapper
+    flex-shrink: 0
+    width: 281px
+    height: 191px
+    margin-bottom: 0
+  .img
+  .text-content
+    max-width: 507px
+  .amount
+  .description
+    font-size: 30px
+    font-weight: 700
+
+    overflow: hidden
+    -webkit-line-clamp: 2
+    -webkit-box-orient: vertical
+    display: -webkit-box
+  .extra-description
+
+  .controls
+    gap: 44px
+    margin-left: auto
+  .delimiter_vertical
+  .cost
+    font-size: 30px
+  .remove

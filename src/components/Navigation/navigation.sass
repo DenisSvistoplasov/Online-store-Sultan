@@ -1,0 +1,41 @@
+.navigation
+  margin-bottom: 25px
+  padding-top: 20px
+.back
+  position: relative
+  padding: 10px 0 10px 37px
+  font-size: 10px
+  line-height: 12px
+  font-weight: 600
+  letter-spacing: 0.14em
+  text-transform: uppercase
+  &::before
+    content:''
+    position: absolute
+    left: 0
+    top: 0
+    width: 32px
+    height: 32px
+    border-radius: 50%  
+    background: url('../../assets/img/arrow-tick_left.svg') no-repeat center rgba(255, 202, 101, .3)
+.crumbs
+  display: none
+
+
+
+@media ( min-width: 1400px )
+  .navigation
+    margin-bottom: 50px
+  .back
+    display: none
+  .crumbs
+    display: flex
+    gap: 10px
+    font-size: 14px
+    line-height: 17px
+    font-weight: 300
+  .crumbs__main
+  .crumbs__path
+    padding-left: 10px
+    border-left: 1px dashed #3F4E65
+    opacity: 0.5
