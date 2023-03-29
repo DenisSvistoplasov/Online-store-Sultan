@@ -19,7 +19,7 @@ export interface IProduct {
   fullDescription: string;
   types: productTypes[];
   isPopular?: boolean;
-  id: number|string;
+  id: string;
 }
 
 
@@ -35,7 +35,7 @@ const defaultCatalog: IProduct[] = [
     manufacturer: 'Нэфис',
     brand: 'AOS',
     price: 48.76,
-    id: 0,
+    id: '0',
     types: ['body'],
     isPopular: true
   },
@@ -50,7 +50,7 @@ const defaultCatalog: IProduct[] = [
     manufacturer: 'Нэфис',
     brand: 'AOS',
     price: 48.76,
-    id: 1,
+    id: '1',
     types: ['face']
   },
   {
@@ -64,7 +64,7 @@ const defaultCatalog: IProduct[] = [
     manufacturer: 'Нэфис',
     brand: 'AOS',
     price: 48.76,
-    id: 2,
+    id: '2',
     types: ['body', 'face']
   },
   {
@@ -78,7 +78,7 @@ const defaultCatalog: IProduct[] = [
     manufacturer: 'Нэфис',
     brand: 'AOS',
     price: 48.76,
-    id: 3,
+    id: '3',
     types: ['body']
   },
   {
@@ -92,7 +92,7 @@ const defaultCatalog: IProduct[] = [
     manufacturer: 'Нэфис',
     brand: 'BioMio',
     price: 48.76,
-    id: 4,
+    id: '4',
     types: ['body']
   },
 
@@ -107,7 +107,7 @@ const defaultCatalog: IProduct[] = [
     manufacturer: 'Boyscout',
     brand: 'Nivea',
     price: 148.76,
-    id: 5,
+    id: '5',
     types: ['hair', 'face']
   },
   {
@@ -121,7 +121,7 @@ const defaultCatalog: IProduct[] = [
     manufacturer: 'Нэфис',
     brand: 'AOS',
     price: 38.76,
-    id: 6,
+    id: '6',
     types: ['face', 'body', 'hair']
   },
   {
@@ -135,7 +135,7 @@ const defaultCatalog: IProduct[] = [
     manufacturer: 'Нэфис',
     brand: 'AOS',
     price: 48.76,
-    id: 7,
+    id: '7',
     types: ['hair', 'face']
   },
   {
@@ -149,7 +149,7 @@ const defaultCatalog: IProduct[] = [
     manufacturer: 'Нэфис',
     brand: 'AOS',
     price: 200.76,
-    id: 8,
+    id: '8',
     types: ['face']
   },
   {
@@ -163,7 +163,7 @@ const defaultCatalog: IProduct[] = [
     manufacturer: 'Нэфис',
     brand: 'BioMio',
     price: 134.76,
-    id: 9,
+    id: '9',
     types: ['body', 'face']
   },
 
@@ -178,7 +178,7 @@ const defaultCatalog: IProduct[] = [
     manufacturer: 'Нэфис',
     brand: 'AOS',
     price: 248.76,
-    id: 10,
+    id: '10',
     types: ['hands', 'body']
   },
   {
@@ -192,7 +192,7 @@ const defaultCatalog: IProduct[] = [
     manufacturer: 'Нэфис',
     brand: 'AOS',
     price: 8.76,
-    id: 11,
+    id: '11',
     types: ['face', 'hair']
   },
   {
@@ -206,7 +206,7 @@ const defaultCatalog: IProduct[] = [
     manufacturer: 'Нэфис',
     brand: 'AOS',
     price: 348.76,
-    id: 12,
+    id: '12',
     types: ['body', 'hands']
   },
   {
@@ -220,7 +220,7 @@ const defaultCatalog: IProduct[] = [
     manufacturer: 'Нэфис',
     brand: 'AOS',
     price: 48.76,
-    id: 13,
+    id: '13',
     types: ['hands', 'face']
   },
   {
@@ -234,7 +234,7 @@ const defaultCatalog: IProduct[] = [
     manufacturer: 'Нэфис',
     brand: 'BioMio',
     price: 48.02,
-    id: 14,
+    id: '14',
     types: ['body', 'hair', 'face', 'hands']
   },
 
@@ -249,7 +249,7 @@ const defaultCatalog: IProduct[] = [
     manufacturer: 'Fairy Ltd',
     brand: 'Fairy',
     price: 848.76,
-    id: 15,
+    id: '15',
     types: ['hands', 'body', 'face']
   },
   {
@@ -263,7 +263,7 @@ const defaultCatalog: IProduct[] = [
     manufacturer: 'Нэфис',
     brand: 'AOS',
     price: 8.76,
-    id: 16,
+    id: '16',
     types: ['face', 'body']
   },
   {
@@ -277,7 +277,7 @@ const defaultCatalog: IProduct[] = [
     manufacturer: 'Нэфис',
     brand: 'AOS',
     price: 348.76,
-    id: 17,
+    id: '17',
     types: ['face', 'hands']
   },
   {
@@ -291,7 +291,7 @@ const defaultCatalog: IProduct[] = [
     manufacturer: 'Нэфис',
     brand: 'AOS',
     price: 48.76,
-    id: 18,
+    id: '18',
     types: ['hands', 'face', 'hair', 'body']
   },
   {
@@ -305,7 +305,7 @@ const defaultCatalog: IProduct[] = [
     manufacturer: 'Нэфис',
     brand: 'BioMio',
     price: 48.02,
-    id: 19,
+    id: '19',
     types: ['body', 'hair', 'hands']
   },
 ];

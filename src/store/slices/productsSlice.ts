@@ -44,7 +44,7 @@ export default productsSlice.reducer;
 
 export const selectProductsStatus = (state: RootState) => state.products.meta.status;
 export const selectProducts = (state: RootState) => state.products.data;
-export const selectProductsByIds = (ids: (string | number)[]) => (state: RootState) => {
+export const selectProductsByIds = (ids: (string | undefined)[]) => (state: RootState) => {
   return state.products.data.filter(product => ids.includes(product.id + ''));
 };
 export const selectBrandsAndManufacturers = (state: RootState) => {

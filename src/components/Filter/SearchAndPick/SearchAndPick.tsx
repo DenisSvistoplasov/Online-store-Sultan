@@ -24,7 +24,6 @@ export function SearchAndPick(props: ISearchAndPickProps) {
   const [_options, setOptions] = useState(options);
   const [_toShow, setToShow] = useState(toShow);
   const [isAllShown, setIsAllShown] = useState(false);
-  // const [checkedValues, setCheckedValues] = useState([] as string[]);
 
   useEffect(() => { setOptions(options); }, [options]);
 
@@ -48,16 +47,6 @@ export function SearchAndPick(props: ISearchAndPickProps) {
 
   const onCheckboxChange = (e: SyntheticEvent) => {
     const target = e.target as HTMLInputElement;
-
-    // let newValues: string[];
-    // if (target.checked) {
-    //   newValues = [...checkedValues, target.value];
-    // }
-    // else {
-    //   newValues = checkedValues.filter(value => value != target.value);
-    //   setCheckedValues(prev => prev.filter(value => value != target.value));
-    // }
-    // setCheckedValues(newValues);
     onChange(target.value);
   };
 

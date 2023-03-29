@@ -18,7 +18,6 @@ export function Pagination(props: IPaginationProps) {
     className
   } = props;
 
-
   const onClickPage = (page: number) => {
     onChange(page);
   };
@@ -35,22 +34,20 @@ export function Pagination(props: IPaginationProps) {
     }
   };
 
-
-
   return (
     <div className={classnames(styles.wrapper, className)}>
-      <button className={styles.back} onClick={onClickBack}><IconArrowTickYellow /></button>
+      <button className={classnames(styles.back, 'interactive-btn')} onClick={onClickBack}><IconArrowTickYellow /></button>
       <ul className={styles.list}>
         {new Array(numberOfPages).fill(0).map((_, index) => (
           <li key={index} className={styles.item}>
             <button
-              className={classnames(styles.page, { [styles.active]: index + 1 == currentPage })}
+              className={classnames(styles.page, { [styles.active]: index + 1 == currentPage }, 'interactive-btn')}
               onClick={() => onClickPage(index + 1)}
             >{index + 1}</button>
           </li>
         ))}
       </ul>
-      <button className={styles.forward} onClick={onClickForward}><IconArrowTickYellow /></button>
+      <button className={classnames(styles.forward, 'interactive-btn')} onClick={onClickForward}><IconArrowTickYellow /></button>
     </div>
   );
 }

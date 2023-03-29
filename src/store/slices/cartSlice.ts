@@ -1,9 +1,10 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { IProduct } from "../../data/catalog";
 import { RootState } from "../store";
+import defaultBasket from "../../data/defaultBasket.json";
 
 interface ICartState {
-  productsIds: { [id: string | number]: number; };
+  productsIds: { [id: string]: number; };
   totalCount: number;
 }
 
@@ -11,10 +12,7 @@ const LOCAL_STORAGE_KEY = 'cart-data';
 
 const localCart = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY) || 'null');
 
-const initialState = localCart as ICartState || {
-  productsIds: {} as { [id: string | number]: number; },
-  totalCount: 0,
-};
+const initialState = localCart as ICartState || defaultBasket;
 
 const saveLocally = (state: ICartState) => localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(state));
 
@@ -22,13 +20,15 @@ const cartSlice = createSlice({
   name: 'cart',
   initialState,
   reducers: {
-    plusToCart(state, action: PayloadAction<number | string>) {
+    plusToCart(state, action: PayloadAction<string | undefined>) {
+      if (!action.payload) return;
       if (!state.productsIds[action.payload]) state.productsIds[action.payload] = 0;
       state.productsIds[action.payload]++;
       state.totalCount++;
       saveLocally(state);
     },
-    minusFromCart(state, action: PayloadAction<number | string>) {
+    minusFromCart(state, action: PayloadAction<string | undefined>) {
+      if (!action.payload) return;
       if (state.productsIds[action.payload]) {
         state.productsIds[action.payload]--;
         state.totalCount--;
@@ -36,7 +36,8 @@ const cartSlice = createSlice({
         saveLocally(state);
       }
     },
-    removeFromCart(state, action: PayloadAction<number | string>) {
+    removeFromCart(state, action: PayloadAction<string | undefined>) {
+      if (!action.payload) return;
       if (state.productsIds[action.payload]) {
         state.totalCount -= state.productsIds[action.payload];
         state.productsIds[action.payload] = 0;
@@ -44,16 +45,21 @@ const cartSlice = createSlice({
         saveLocally(state);
       }
     },
+    clearCart(state) {
+      state.productsIds = {};
+      state.totalCount = 0;
+      saveLocally(state);
+    },
   }
 });
 
 export default cartSlice.reducer;
 
-export const { plusToCart, minusFromCart, removeFromCart } = cartSlice.actions;
+export const { plusToCart, minusFromCart, removeFromCart, clearCart } = cartSlice.actions;
 
 export const selectCartProductsIds = (state: RootState) => state.cart.productsIds;
 export const selectCartTotalCount = (state: RootState) => state.cart.totalCount;
-export const selectProductInCartCount = (id: string | number) => (state: RootState) => state.cart.productsIds[id] || 0;
+export const selectProductInCartCount = (id?: string) => (state: RootState) => id ? (state.cart.productsIds[id] || 0) : 0;
 export const selectCartTotalCost = (state: RootState) => {
   const catalog = state.products.data;
   const cartProductsIds = state.cart.productsIds;

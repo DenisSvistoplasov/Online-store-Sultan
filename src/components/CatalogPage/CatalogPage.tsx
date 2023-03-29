@@ -128,7 +128,6 @@ const sortingFunctions = {
   ['price down']: (a: IProduct, b: IProduct) => (b.price) - (a.price),
 };
 
-
 const applyFilter = (products: IProduct[], restrictions: IFilterRestrictions) => {
   const { brands, manufacturers, maxPrice, minPrice } = restrictions;
 

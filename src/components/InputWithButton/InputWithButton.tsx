@@ -10,13 +10,12 @@ interface IInputWithButtonProps{
   onInput?: (e:FormEvent<HTMLInputElement>)=>void;
 }
 
-let a : FormEventHandler
 export function InputWithButton({ className, icon, placeholder, onClick = () => {}, onInput=()=>{} }: IInputWithButtonProps) {
   const ref = useRef<HTMLInputElement>(null);
   return (
     <div className={classnames(styles.wrapper, className)}>
       <input type="text" className={styles.input} ref={ref} placeholder={placeholder} onInput={onInput} />
-      <button className={styles.btn} onClick={()=>onClick(ref.current?.value||'')}>{icon}</button>
+      <button className={classnames(styles.btn, 'interactive-btn')} onClick={()=>onClick(ref.current?.value||'')}>{icon}</button>
     </div>
   );
 }

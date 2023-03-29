@@ -1,8 +1,6 @@
 .section
   padding: 0px 0 50px
 
-
-
 .title
   margin-bottom: 15px
   font-size: 20px
@@ -23,13 +21,13 @@
   font-weight: 500
   text-align: left
   &::after
-    content:''
+    content: ''
     position: absolute
     right: 0
     top: 0
     width: 32px
     height: 32px
-    border-radius: 50%  
+    border-radius: 50%
     background: url('../../assets/img/arrow-tick_left.svg') no-repeat center rgba(255, 202, 101, .3)
     transform: rotate(-90deg)
 
@@ -47,13 +45,7 @@
   line-height: 1.5
   font-weight: 400
 
-
-
-
-
-
-
-@media ( min-width: 1400px )
+@media ( min-width: 1140px )
   .section
     padding-bottom: 102px
   .navigation
@@ -78,7 +70,7 @@
     display: grid
     grid-template: 'top top' 'left content' / 238px auto
     gap: 30px
-  
+
   .inner__top
     display: grid
     grid-template: auto auto / 1fr 1fr
@@ -104,7 +96,6 @@
       background-color: #fff
       box-shadow: 0px 15px 70px -11px rgba(43, 28, 1, 0.04)
 
-
   .inner__left
     grid-area: left
     padding-top: 20px
@@ -115,7 +106,6 @@
       pointer-events: none
       &::after
         display: none
-  .types
   .inner__content
     grid-area: content
   .products

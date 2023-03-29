@@ -72,6 +72,20 @@ body
   color: #3F4E65
   font-family: 'Inter', sans-serif
 
+.interactive-btn
+  // background-color: #FFC85E
+  transition-property: background-color, transform
+  transition-duration: .2s
+  transition-timing-function: ease-in-out
+  transform-origin: 50% 100%
+  @media ( min-width: 1140px )
+    &:hover
+      background-color: #fa3
+  &:active
+    background-color: #e70
+    transform: scaleY(.95)
+    
+
 .app
   background-color: #fff
   padding-bottom: 30px

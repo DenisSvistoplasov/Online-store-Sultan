@@ -13,30 +13,20 @@ import { OneProductPage } from "./components/OneProductPage";
 import { IProduct } from "./data/catalog";
 import aosImg from './assets/img/products/AOS.png';
 import { BasketPage } from "./components/BasketPage";
+import { Main } from "./components/Main";
 
 export function App() {
   return (
-    // <React.StrictMode>
     <HashRouter>
       <Provider store={store}>
         <BreakpointProvider>
           <div className='app'>
             <Header />
-            <main className="main">
-              <Navigation />
-              <Routes>
-                <Route path="/" element={<CatalogPage />} />
-                <Route path="/catalog/:type?" element={<CatalogPage />} />
-                <Route path="/product/:id" element={<OneProductPage />} />
-                <Route path="/basket" element={<BasketPage />} />
-                {/* <Route path="/cart" element={<OneProductPage />} /> */}
-              </Routes>
-            </main>
+            <Main/>
             <Footer />
           </div>
         </BreakpointProvider>
       </Provider>
     </HashRouter>
-    // </React.StrictMode>
   );
 }

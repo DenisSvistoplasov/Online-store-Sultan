@@ -19,7 +19,6 @@ module.exports = {
   output: {
     path: absPath('dist'),
     filename: 'index.js',
-    // publicPath: '/static/',
   },
 
   module: {
@@ -49,14 +48,6 @@ module.exports = {
 
       {
         test: /\.(png|jpe?g|svg|webp|gif)$/i,
-        // use: {
-        //   loader: 'file-loader',
-        //   options: {
-        //     outputPath: 'image',
-        //     publicPath: 'static/image',
-        //     name: '[name].[ext]',
-        //   }
-        // }
         type: 'asset/resource',
         generator: {
           filename: "image/[name][ext]",
@@ -66,7 +57,6 @@ module.exports = {
         test: /\.(ttf|woff|woff2)$/i,
         type: 'asset/resource',
         generator: {
-          // publicPath: '/static/fonts/',
           filename: 'fonts/[name][ext]',
         }
       }

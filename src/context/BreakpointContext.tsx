@@ -1,7 +1,7 @@
 import { ReactNode, createContext, useEffect, useState } from "react";
 import { breakpoint } from "../types/types";
 
-const BREAKPOINT_MEDIA_QUERY = '(min-width: 1400px)';
+const BREAKPOINT_MEDIA_QUERY = '(min-width: 1140px)';
 
 export const breakpointContext = createContext('' as breakpoint);
 

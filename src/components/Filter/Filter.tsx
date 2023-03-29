@@ -25,7 +25,6 @@ interface IFilterProps {
 export function Filter(props: IFilterProps) {
   const {
     sendRestrictions,
-    // restrictions,
     defaultMinPrice = 0,
     defaultMaxPrice = 10000,
     className,
@@ -117,8 +116,8 @@ export function Filter(props: IFilterProps) {
           onChange={onChangeBrands} />
 
         <div className={styles.bottom}>
-          <button className={styles.apply} onClick={onApply}>Показать</button>
-          <button className={styles.clear} onClick={onClear}><IconTrashCan /></button>
+          <button className={classnames(styles.apply, 'interactive-btn')} onClick={onApply}>Показать</button>
+          <button className={classnames(styles.clear, 'interactive-btn')} onClick={onClear}><IconTrashCan /></button>
         </div>
       </div>}
     </div>

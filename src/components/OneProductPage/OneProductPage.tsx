@@ -14,16 +14,22 @@ import { classnames } from '../../utils/classnames';
 import { selectProductsByIds, selectProductsStatus } from '../../store/slices/productsSlice';
 import { Counter } from '../Counter';
 import { fixNumber } from '../../utils/fixNumber';
+import { NotFound } from '../NotFound';
+import { Dropdown } from '../Dropdown';
+import defaultBasket from '../../data/defaultBasket.json';
+
 
 
 export function OneProductPage() {
-  const isLoading = useAppSelector(selectProductsStatus)==='loading';
-  const id = useParams().id || 0;
+  const isLoading = useAppSelector(selectProductsStatus) === 'loading';
+  const id = useParams().id;
   const productData = useAppSelector(selectProductsByIds([id]))[0];
   const count = useAppSelector(selectProductInCartCount(id));
+  console.log('count: ', count);
   const dispatch = useAppDispatch();
 
   if (isLoading) return <>Loading...</>;
+  if (!productData) return <NotFound text='Товар не найден' />;
 
   const {
     imageUrl,
@@ -39,9 +45,6 @@ export function OneProductPage() {
     types: type,
     isPopular,
   } = productData;
-
-
-
 
   const onPlus = () => dispatch(plusToCart(id));
   const onMinus = () => dispatch(minusFromCart(id));
@@ -68,7 +71,7 @@ export function OneProductPage() {
 
           <div className={styles.controls}>
             <div className={styles.price}>{fixNumber(price)} ₸</div>
-            <Counter count={count} onMinus={onMinus} onPlus={onPlus}/>
+            <Counter className={styles.counter} count={count} onMinus={onMinus} onPlus={onPlus} />
             {count ?
               <button className={styles.remove} onClick={onRemove}>Убрать<IconCart /></button> :
               <button className={styles.add} onClick={onPlus}>В корзину<IconCart /></button>
@@ -80,16 +83,17 @@ export function OneProductPage() {
             </div>
           </div>
 
-
-
           <div className={styles.manufacturer}>Производитель:<b>{manufacturer}</b></div>
           <div className={styles.brand}>Бренд:<b>{brand}</b></div>
           <div className={styles.barcode}>Штрихкод:<b>{barcode}</b></div>
 
-          <div className={styles['description-dropdown']}>Описание <span className={styles['dropdown-arrow']}>▼</span></div>
-          <div className={styles.delimiter}>
-          </div>
-          <div className={styles['characteristics-dropdown']}>Характеристики <span className={styles['dropdown-arrow']}>▼</span></div>
+          <Dropdown button='Описание'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam interdum ut justo, vestibulum sagittis iaculis iaculis. Quis mattis vulputate feugiat massa vestibulum duis. Faucibus consectetur aliquet sed pellentesque consequat consectetur congue mauris venenatis. Nunc elit, dignissim sed nulla ullamcorper enim, malesuada.</Dropdown>
+          <div className={styles.delimiter} />
+          <Dropdown button='Характеристики'>
+            <div className={styles.manufacturer}>Производитель:<b>{manufacturer}</b></div>
+            <div className={styles.brand}>Бренд:<b>{brand}</b></div>
+            <div className={styles.barcode}>Штрихкод:<b>{barcode}</b></div>
+          </Dropdown>
         </div>
 
       </Container>

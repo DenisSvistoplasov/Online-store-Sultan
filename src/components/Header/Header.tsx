@@ -14,6 +14,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks/storeHooks';
 import { selectCartTotalCost, selectCartTotalCount } from '../../store/slices/cartSlice';
 import { getProducts } from '../../store/slices/productsSlice';
 import { fixNumber } from '../../utils/fixNumber';
+import { classnames } from '../../utils/classnames';
 
 
 export function Header() {
@@ -76,6 +77,9 @@ export function Header() {
   );
 }
 
+
+
+
 function HeaderDesktop() {
   const cartTotalCount = useAppSelector(selectCartTotalCount);
   const cartTotalCost = useAppSelector(selectCartTotalCost);
@@ -100,7 +104,7 @@ function HeaderDesktop() {
       <div className={styles.header__bottom}>
         <Container className={styles['bottom-container']}>
           <Logo className={styles.logo} />
-          <a href="#/catalog" className={styles.catalog}><IconCatalog />Каталог</a>
+          <a href="#/catalog" className={classnames(styles.catalog, 'interactive-btn')}><IconCatalog />Каталог</a>
           <SearchBlock className={styles['search-block']} />
           <div className={styles["phone-block"]}>
             <Contact className={styles.contact_tel} title='+7 (777) 490-00-91' subtitle={<>время работы: 9:00-20:00<div style={{ height: 5 }} /><button className={styles['request-a-call']}>Заказать звонок</button></>} />            
@@ -108,16 +112,16 @@ function HeaderDesktop() {
           <PriceListLink className={styles['price-list-link']} />
           <div className={styles.delimiter}>
           </div>
-          <div className={styles["basket-block"]}>
-            <a href="#/basket" className={styles.basket}>
+          <a href='#/basket' className={styles["basket-block"]}>
+            <div className={styles.basket}>
               <IconCart />
               <div className={styles.basket__count}>{cartTotalCount}</div>
-            </a>
+            </div>
             <div className={styles["basket-info"]}>
               <div className={styles["basket-title"]}>Корзина</div>
               <div className={styles["basket-value"]}>{fixNumber(cartTotalCost)} ₸</div>
             </div>
-          </div>
+          </a>
 
 
         </Container>
