@@ -47,15 +47,17 @@ export function BasketProduct(props: IBasketProductProps) {
           {quantityType == 'объем' && <IconBottle />}
           {amount}
         </div>
-        <h3 className={styles.description} title={name+' '+description}>{name} {description}</h3>
+        <h3 className={styles.description}>
+          <a href={'#/product/'+id} className={styles.product__link} title={name + ' ' + description}>{name} {description}</a>
+        </h3>
         <p className={styles['extra-description']}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam interdum ut justo, vestibulum sagittis iaculis iaculis. Quis mattis vulputate feugiat massa vestibulum duis. </p>
       </div>
 
       <div className={styles.controls}>
         <Counter count={count} onPlus={onPlus} onMinus={onMinus} />
-        <div className={styles.delimiter_vertical} />
+        {/* <div className={styles.delimiter_vertical} /> */}
         <div className={styles.cost}>{fixNumber(cost)} ₸</div>
-        <div className={styles.delimiter_vertical} />
+        {/* <div className={styles.delimiter_vertical} /> */}
         <button className={styles.remove} onClick={onRemove}><IconTrashCan /></button>
       </div>
     </article>

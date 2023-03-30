@@ -42,10 +42,10 @@ export function Header() {
                     <Contact className={styles.contact_address} title='г. Кокчетав, ул. Ж. Ташенова 129Б' subtitle='(Рынок Восточный)' link={false} />
                   </li>
                   <li className={styles.contact}>
-                    <Contact className={styles.contact_email} title='opt.sultan@mail.ru' subtitle='На связи в любое время' />
+                    <Contact className={styles.contact_email} title='opt.sultan@mail.ru' subtitle='На связи в любое время' href='mailto:opt.sultan@mail.ru' />
                   </li>
                   <li className={styles.contact}>
-                    <Contact className={styles.contact_tel} title='Отдел продаж' subtitle={<>+7 (777) 490-00-91 <div style={{ height: 5 }} />время работы: 9:00-20:00</>} />
+                    <Contact className={styles.contact_tel} title='Отдел продаж' subtitle={<>+7 (777) 490-00-91 <div style={{ height: 5 }} />время работы: 9:00-20:00</>} href='tel:+77774900091' />
                   </li>
                 </ul>
 
@@ -83,6 +83,7 @@ export function Header() {
 function HeaderDesktop() {
   const cartTotalCount = useAppSelector(selectCartTotalCount);
   const cartTotalCost = useAppSelector(selectCartTotalCost);
+  
 
 
   return (
@@ -91,10 +92,10 @@ function HeaderDesktop() {
         <Container className={styles['top-container']}>
           <ul className={styles['contacts-list']}>
             <li className={styles.contact}>
-              <Contact className={styles.contact_address} title='г. Кокчетав, ул. Ж. Ташенова 129Б' subtitle='(Рынок Восточный)' link={false} />
+              <Contact className={styles.contact_address} title='г. Кокчетав, ул. Ж. Ташенова 129Б' subtitle='(Рынок Восточный)' link={false}  />
             </li>
             <li className={styles.contact}>
-              <Contact className={styles.contact_email} title='opt.sultan@mail.ru' subtitle='На связи в любое время' />
+              <Contact className={styles.contact_email} title='opt.sultan@mail.ru' subtitle='На связи в любое время' href='mailto:opt.sultan@mail.ru' />
             </li>
           </ul>
           <Nav className={styles.nav} />
@@ -107,7 +108,7 @@ function HeaderDesktop() {
           <a href="#/catalog" className={classnames(styles.catalog, 'interactive-btn')}><IconCatalog />Каталог</a>
           <SearchBlock className={styles['search-block']} />
           <div className={styles["phone-block"]}>
-            <Contact className={styles.contact_tel} title='+7 (777) 490-00-91' subtitle={<>время работы: 9:00-20:00<div style={{ height: 5 }} /><button className={styles['request-a-call']}>Заказать звонок</button></>} />            
+            <Contact className={styles.contact_tel} title='+7 (777) 490-00-91' subtitle={<>время работы: 9:00-20:00<div style={{ height: 5 }} /><button className={styles['request-a-call']}>Заказать звонок</button></>} href='tel:+77774900091' />            
           </div>
           <PriceListLink className={styles['price-list-link']} />
           <div className={styles.delimiter}>

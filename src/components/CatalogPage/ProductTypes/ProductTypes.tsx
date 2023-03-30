@@ -12,12 +12,12 @@ export const typesText = {
   hair: 'Уход за волосами',
 };
 
-export function ProductTypes({ className = '' }) {
+export function ProductTypes({ className = '', currentType='' }) {
   const types = useAppSelector(selectProductsTypes);
   return (
     <ul className={classnames(styles.types, className)}>
       {types.map((type, i) => (
-        <li key={i}><a href={'#/catalog/' + type} className={styles['type-btn']}>{typesText[type]}</a></li>
+        <li key={i}><a href={'#/catalog/' + type} className={classnames(styles['type-btn'], {[styles.active]:currentType===type})}>{typesText[type]}</a></li>
       ))}
     </ul>
   );

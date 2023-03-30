@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styles from './catalogpage.sass';
 import { Container } from '../Container';
 import { Select } from '../Select';
@@ -34,8 +34,9 @@ export function CatalogPage() {
   const [sortingType, setSortingType] = useState(INITIAL_SORTING);
   const [productsOfCurrentType, setProductsOfCurrentType] = useState<IProduct[]>([]);
   const [productsToShow, setProductsToShow] = useState<IProduct[]>([]);
-
-
+  const [shouldPaginationSync, setShouldPaginationSync] = useState(false);
+  const [shouldFilterSync, setShouldFilterSync] = useState(false);
+  const sectionRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     // Type
@@ -47,6 +48,7 @@ export function CatalogPage() {
 
     setProductsOfCurrentType(newProductsOfCurrentType);
     setProductsToShow(newProductsToShow);
+    setShouldPaginationSync(x => !x);
   }, [products]);
 
   useEffect(() => {
@@ -58,6 +60,7 @@ export function CatalogPage() {
     setSortingType(INITIAL_SORTING);
 
     setProductsOfCurrentType(newProductsOfCurrentType);
+    setShouldFilterSync(x => !x);
   }, [productType]);
 
   useEffect(() => {
@@ -67,6 +70,7 @@ export function CatalogPage() {
     newProductsToShow.sort(sortingFunctions[sortingType]);
 
     setProductsToShow(newProductsToShow);
+    setShouldPaginationSync(x => !x);
   }, [filterRestrictions]);
 
   useEffect(() => {
@@ -75,11 +79,11 @@ export function CatalogPage() {
     newProductsToShow.sort(sortingFunctions[sortingType]);
 
     setProductsToShow(newProductsToShow);
+    setShouldPaginationSync(x => !x);
   }, [sortingType]);
 
-
   return (
-    <section className={styles.section}>
+    <section className={styles.section} ref={sectionRef}>
       <Container>
 
         <div className={styles.inner}>
@@ -92,15 +96,15 @@ export function CatalogPage() {
                   <Sorting sortingType={sortingType} onChoice={setSortingType} />
                   <IconProductViewType />
                 </div>
-                <ProductTypes className={styles.types} />
+                <ProductTypes className={styles.types} currentType={productType} />
               </>
             }
           </div>
 
-
           <aside className={styles.inner__left}>
-            <Filter className={styles.filter} sendRestrictions={setFilterRestrictions} staticOpen={breakpoint==='desktop'} />
-            <ProductTypes className={styles.types} />
+            <Filter className={styles.filter} sendRestrictions={setFilterRestrictions} staticOpen={breakpoint === 'desktop'}
+              shouldFilterSync={shouldFilterSync} />
+            <ProductTypes className={styles.types} currentType={productType} />
           </aside>
 
 
@@ -109,7 +113,14 @@ export function CatalogPage() {
           }
 
           <div className={styles.inner__content}>
-            <ProductsList products={productsToShow} className={styles.products} initialPage={INITIAL_PAGE} productsPerPage={productsPerPage} />
+            <ProductsList
+              className={styles.products}
+              products={productsToShow}
+              initialPage={INITIAL_PAGE}
+              productsPerPage={productsPerPage}
+              shouldPaginationSync={shouldPaginationSync}
+              parentContainer={sectionRef.current}
+            />
 
             <p className={styles['bottom-text']}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam interdum ut justo, vestibulum sagittis iaculis iaculis. Quis mattis vulputate feugiat massa vestibulum duis. Faucibus consectetur aliquet sed pellentesque consequat consectetur congue mauris venenatis. Nunc elit, dignissim sed nulla ullamcorper enim, malesuada.</p>
           </div>

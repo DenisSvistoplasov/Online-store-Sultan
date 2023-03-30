@@ -14,9 +14,8 @@ import { classnames } from '../../utils/classnames';
 import { selectProductsByIds, selectProductsStatus } from '../../store/slices/productsSlice';
 import { Counter } from '../Counter';
 import { fixNumber } from '../../utils/fixNumber';
-import { NotFound } from '../NotFound';
+import { InfoMessage } from '../InfoMessage';
 import { Dropdown } from '../Dropdown';
-import defaultBasket from '../../data/defaultBasket.json';
 
 
 
@@ -25,11 +24,10 @@ export function OneProductPage() {
   const id = useParams().id;
   const productData = useAppSelector(selectProductsByIds([id]))[0];
   const count = useAppSelector(selectProductInCartCount(id));
-  console.log('count: ', count);
   const dispatch = useAppDispatch();
 
   if (isLoading) return <>Loading...</>;
-  if (!productData) return <NotFound text='Товар не найден' />;
+  if (!productData) return <InfoMessage text='Товар не найден' />;
 
   const {
     imageUrl,
@@ -73,8 +71,8 @@ export function OneProductPage() {
             <div className={styles.price}>{fixNumber(price)} ₸</div>
             <Counter className={styles.counter} count={count} onMinus={onMinus} onPlus={onPlus} />
             {count ?
-              <button className={styles.remove} onClick={onRemove}>Убрать<IconCart /></button> :
-              <button className={styles.add} onClick={onPlus}>В корзину<IconCart /></button>
+              <button className={classnames(styles.remove, 'interactive-btn')} onClick={onRemove}>Убрать<IconCart /></button> :
+              <button className={classnames(styles.add, 'interactive-btn')} onClick={onPlus}>В корзину<IconCart /></button>
             }
             <div className={styles.share}><IconShare /></div>
             <div className={styles['promotion-and-price-list']}>

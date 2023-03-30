@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks/storeHooks';
 import { clearCart, selectCartProductsIds, selectCartRepresentation } from '../../store/slices/cartSlice';
 import { selectProducts, selectProductsStatus } from '../../store/slices/productsSlice';
@@ -14,52 +14,60 @@ import { IconTrashCan } from '../icons/trashCan';
 import { BasketProduct } from './BasketProduct';
 import styles from './basketpage.sass';
 import { IconComplete } from '../icons/complete';
+import { InfoMessage } from '../InfoMessage';
 
 export function BasketPage() {
   const isLoading = useAppSelector(selectProductsStatus) === 'loading';
   const { products, totalCost } = useAppSelector(selectCartRepresentation);
   const [isOpenModal, setIsOpenModal] = useState(false);
-  const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch();
+  const sectionRef = useRef<HTMLDivElement>(null);
 
-  if (isLoading) return <div style={{ textAlign: 'center', padding: 50 }}>Loading...</div>;
-  if (products.length === 0) return <div style={{ textAlign: 'center', padding: 50 }}>Корзина пуста</div>;
+  useEffect(() => {
+    if (sectionRef.current && sectionRef.current.getBoundingClientRect().bottom < 0) {
+      sectionRef.current.scrollIntoView({ behavior: 'smooth', block: 'end' });
+    }
+  }, [products]);
 
   const onOrder = () => {
     setIsOpenModal(true);
-  }
+  };
   const onCloseModal = () => {
     dispatch(clearCart());
     setIsOpenModal(false);
-  }
-
-
-
+  };
 
   return (
-    <section className={styles.section}>
-      <Container>
-        <h1 className={styles.title}>КОРЗИНА</h1>
+    <section className={styles.section} ref={sectionRef}>
+      {isLoading ?
+        <InfoMessage text='Loading...' /> :
 
-        <ul className={styles.list}>
-          {products.map(product => (
-            <li key={product.id} className={styles.item}>
-              <div className={styles.delimiter} />
-              <BasketProduct {...product} />
-            </li>
-          ))}
-        </ul>
+        products.length === 0 ?
+          <InfoMessage text='Корзина пуста' /> :
 
-        <div className={classnames(styles.delimiter, styles.delimiter_common)} />
+          <Container>
+            <h1 className={styles.title}>КОРЗИНА</h1>
 
-        <div className={styles.bottom}>
-          <div className={styles['total-cost']}>{fixNumber(totalCost)} ₸</div>
-          <button className={styles.order} onClick={onOrder}>Оформить заказ</button>
-        </div>
-      </Container>
+            <ul className={styles.list}>
+              {products.map(product => (
+                <li key={product.id} className={styles.item}>
+                  <div className={styles.delimiter} />
+                  <BasketProduct {...product} />
+                </li>
+              ))}
+            </ul>
+
+            <div className={classnames(styles.delimiter, styles.delimiter_common)} />
+
+            <div className={styles.bottom}>
+              <div className={styles['total-cost']}>{fixNumber(totalCost)} ₸</div>
+              <button className={classnames(styles.order, 'interactive-btn')} onClick={onOrder}>Оформить заказ</button>
+            </div>
+          </Container>}
 
       {isOpenModal &&
         <Modal onClose={onCloseModal}>
-          <div className={styles['success-img']}><IconComplete/></div>
+          <div className={styles['success-img']}><IconComplete /></div>
           <h2 className={styles['modal-title']}>Спасибо за заказ</h2>
           <p className={styles['modal-subtitle']}>Наш менеджер свяжется с вами в ближайшее время</p>
         </Modal>}

@@ -1,4 +1,4 @@
-import React, { SyntheticEvent, useState } from 'react';
+import React, { SyntheticEvent, useEffect, useState } from 'react';
 import styles from './filter.sass';
 import { SearchAndPick } from './SearchAndPick';
 import { useAppSelector } from '../../hooks/storeHooks';
@@ -15,11 +15,11 @@ export interface IFilterRestrictions {
 
 interface IFilterProps {
   sendRestrictions: (restrictions: IFilterRestrictions) => void;
-  // restrictions: IFilterRestrictions;
   defaultMinPrice?: number;
   defaultMaxPrice?: number;
   className?: string;
   staticOpen?: boolean;
+  shouldFilterSync: boolean;
 }
 
 export function Filter(props: IFilterProps) {
@@ -28,7 +28,8 @@ export function Filter(props: IFilterProps) {
     defaultMinPrice = 0,
     defaultMaxPrice = 10000,
     className,
-    staticOpen = false
+    staticOpen = false,
+    shouldFilterSync
   } = props;
 
   const [isOpen, setIsOpen] = useState(false);
@@ -51,6 +52,8 @@ export function Filter(props: IFilterProps) {
   };
 
   const onClear = () => {
+    setMinPrice(defaultMinPrice);
+    setMaxPrice(defaultMaxPrice);
     setChosenBrands([]);
     setChosenManufacturers([]);
   };
@@ -84,6 +87,8 @@ export function Filter(props: IFilterProps) {
     const value = +(e.target as HTMLInputElement).value;
     if (value >= minPrice) setMaxPrice(value);
   };
+
+  useEffect(onClear, [shouldFilterSync]);
 
   const onFocus = (e: SyntheticEvent) => (e.target as HTMLInputElement).select();
 

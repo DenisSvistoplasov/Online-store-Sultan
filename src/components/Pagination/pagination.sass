@@ -20,6 +20,7 @@
   font-weight: 500
   &.active
     background-color: #fec
+    cursor: auto
 .back, .forward
   display: flex
   justify-content: center
@@ -30,3 +31,10 @@
 .forward
   svg
     transform: scaleX(-1)
+
+@media ( min-width: 1140px )
+  .back:hover, .forward:hover
+    path
+      fill: #fff
+  .page:hover:not(.active)
+    color: #fff
