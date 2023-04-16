@@ -8,85 +8,6 @@
   display: flex
   justify-content: space-between
   align-items: center
-.menu
-.dropdown-checkbox
-  position: absolute
-  width: 0
-  height: 0
-  opacity: 0
-  appearance: none
-.menu__btn
-  display: block
-  width: 32px
-  height: 32px
-  border-radius: 50%
-  background-image: url('../../assets/img/header/burger-menu.svg')
-  background-repeat: no-repeat
-  background-position: center
-  background-color: #FFC85E
-.dropdown-checkbox:checked + .menu__btn
-  background-image: url('../../assets/img/header/close.svg')
-.modal
-  position: absolute
-  top: 100%
-  left: 0
-  right: 0
-  z-index: 1
-  display: flex
-  flex-direction: column
-  min-height: calc(100vh - 103px)
-  visibility: hidden
-  opacity: 0
-  transition: .3s ease-in-out
-.dropdown-checkbox:checked ~ .modal
-  visibility: visible
-  opacity: 1
-.menu__inner
-  display: flex
-  flex-direction: column
-  align-items: flex-start
-  padding: 20px 15px 32px
-  background-color: #fff
-  transform-origin: 0 0
-  transform: scaleY(0)
-  transition: .3s ease-in-out
-.dropdown-checkbox:checked ~ .modal>.menu__inner
-  transform: scaleY(1)
-.close-zone
-  position: fixed
-  top: 104px
-  left: 0
-  right: 0
-  bottom: 0
-  z-index: -1
-  display: none
-  background-color: rgba(17, 17, 17, .5)
-.dropdown-checkbox:checked ~ .modal>.close-zone
-  display: block
-.contacts-list
-  display: flex
-  flex-direction: column
-  align-items: flex-start
-  gap: 15px
-  margin-bottom: 13px
-.contact
-.contact_address
-  background-image: url('../../assets/img/header/location.svg')
-.contact_email
-  background-image: url('../../assets/img/header/mail.svg')
-.contact_tel
-  background-image: url('../../assets/img/header/phone.svg')
-
-.request-a-call
-  margin-bottom: 25px
-  padding: 10px 0 10px 37px
-  font-size: 10px
-  line-height: 1
-  text-decoration: underline
-  background: url('../../assets/img/header/phone_circle.svg') no-repeat left center / contain
-
-.nav
-  margin-bottom: 22px
 
 .basket
   position: relative
@@ -129,13 +50,12 @@
   gap: 6px
   font-size: 12px
   font-weight: 600
-.search
 
 @media (min-width: 1140px)
   .header__top
     padding: 14px 0 13px
   .contacts-list
-    flex-direction: row
+    display: flex
     gap: 42px
     margin-bottom: 0
   .nav
@@ -182,8 +102,11 @@
     div
       line-height: 18px
   .request-a-call
-    margin: 0
+    display: block
+    width: 100%
+    margin: 5px 0 0
     padding: 0
+    text-align: right
     background: none
   .header__bottom .price-list-link
     padding: 21px 44px

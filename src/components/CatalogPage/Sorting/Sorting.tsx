@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import styles from './sorting.sass';
 import { Select } from '../../Select';
 import { IconBarsUp } from '../../icons/barsUp';
@@ -6,13 +6,13 @@ import { IconBarsDown } from '../../icons/barsDown';
 import { sortingType } from '../CatalogPage';
 import { classnames } from '../../../utils/classnames';
 
-interface ISortingProps{
-  onChoice: (value:sortingType)=>void;
-  sortingType: sortingType;
+interface ISortingProps {
+  onChoice: (value: sortingType) => void;
+  currentType: sortingType;
   className?: string;
 }
 
-export function Sorting({onChoice, sortingType, className}:ISortingProps) {
+function Sorting({ onChoice, currentType, className }: ISortingProps) {
   return (
     <div className={classnames(styles.sorting, className)}>
       <div className={styles.sorting__title}>Сортировка:</div>
@@ -24,7 +24,10 @@ export function Sorting({onChoice, sortingType, className}:ISortingProps) {
           ['price up', <>Цена <IconBarsUp /></>],
           ['price down', <>Цена <IconBarsDown /></>],
         ]}
-        selected={sortingType} />
+        selected={currentType} />
     </div>
   );
 }
+  
+const SortingMemo = memo(Sorting);
+export { SortingMemo as Sorting };

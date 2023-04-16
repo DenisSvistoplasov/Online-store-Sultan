@@ -4,10 +4,11 @@ import { classnames } from '../../utils/classnames';
 import { useAppSelector } from '../../hooks/storeHooks';
 import { Product } from './Product/Product';
 import { IProduct } from '../../data/catalog';
-import { pickPaginationPart } from '../../utils/pickPaginationPart';
+import { pickPartForPagination } from '../../utils/pickPartForPagination';
 import { Pagination } from '../Pagination';
 import { selectCartProductsIds } from '../../store/slices/cartSlice';
 import { InfoMessage } from '../InfoMessage';
+import { useAutoscroll } from '../../hooks/useAutoscroll';
 
 interface IProductsListProp {
   className?: string;
@@ -17,23 +18,34 @@ interface IProductsListProp {
   shouldPaginationSync: boolean;
   parentContainer: HTMLDivElement | null;
 }
-export function ProductsList(
-  { className = '', products, initialPage, productsPerPage, shouldPaginationSync, parentContainer }: IProductsListProp) {
+
+export function ProductsList({
+  className = '',
+  products,
+  initialPage,
+  productsPerPage,
+  shouldPaginationSync,
+  parentContainer
+}: IProductsListProp) {
+
   const [currentPage, setCurrentPage] = useState(initialPage);
+
   const { productsPart, numberOfPages } = useMemo(
-    () => pickPaginationPart(products, currentPage, productsPerPage),
+    () => pickPartForPagination(products, currentPage, productsPerPage),
     [products, currentPage, productsPerPage]);
+
   const cartProductsIds = useAppSelector(selectCartProductsIds);
 
   useEffect(() => {
     setCurrentPage(initialPage);
   }, [shouldPaginationSync]);
 
-  useEffect(() => {
-    if (parentContainer && parentContainer.getBoundingClientRect().top < 0) {
-      parentContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-  }, [productsPart]);
+  // useEffect(() => {
+  //   if (parentContainer && parentContainer.getBoundingClientRect().top < 0) {
+  //     parentContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  //   }
+  // }, [productsPart]);
+  useAutoscroll(parentContainer, [productsPart]);
 
   return (
     <>

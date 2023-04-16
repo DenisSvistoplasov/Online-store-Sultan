@@ -1,33 +1,29 @@
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks/storeHooks';
-import { clearCart, selectCartProductsIds, selectCartRepresentation } from '../../store/slices/cartSlice';
-import { selectProducts, selectProductsStatus } from '../../store/slices/productsSlice';
+import { clearCart, selectCartRepresentation } from '../../store/slices/cartSlice';
+import { selectProductsStatus } from '../../store/slices/productsSlice';
 import { classnames } from '../../utils/classnames';
 import { fixNumber } from '../../utils/fixNumber';
 import { Container } from '../Container';
-import { Counter } from '../Counter';
-import { Modal } from '../Modal';
-import { IconBottle } from '../icons/bottle';
-import { IconBox } from '../icons/box';
-import { IconCart } from '../icons/cart';
-import { IconTrashCan } from '../icons/trashCan';
 import { BasketProduct } from './BasketProduct';
 import styles from './basketpage.sass';
-import { IconComplete } from '../icons/complete';
 import { InfoMessage } from '../InfoMessage';
+import { useAutoscroll } from '../../hooks/useAutoscroll';
+import { OrderPlacedModal } from './OrderPlacedModal';
 
 export function BasketPage() {
   const isLoading = useAppSelector(selectProductsStatus) === 'loading';
   const { products, totalCost } = useAppSelector(selectCartRepresentation);
   const [isOpenModal, setIsOpenModal] = useState(false);
-  const dispatch = useAppDispatch();
   const sectionRef = useRef<HTMLDivElement>(null);
+  const dispatch = useAppDispatch();
 
-  useEffect(() => {
-    if (sectionRef.current && sectionRef.current.getBoundingClientRect().bottom < 0) {
-      sectionRef.current.scrollIntoView({ behavior: 'smooth', block: 'end' });
-    }
-  }, [products]);
+  // useEffect(() => {
+  //   if (sectionRef.current && sectionRef.current.getBoundingClientRect().bottom < 0) {
+  //     sectionRef.current.scrollIntoView({ behavior: 'smooth', block: 'end' });
+  //   }
+  // }, [products]);
+  useAutoscroll(sectionRef.current, [products]);
 
   const onOrder = () => {
     setIsOpenModal(true);
@@ -66,11 +62,12 @@ export function BasketPage() {
           </Container>}
 
       {isOpenModal &&
-        <Modal onClose={onCloseModal}>
-          <div className={styles['success-img']}><IconComplete /></div>
-          <h2 className={styles['modal-title']}>Спасибо за заказ</h2>
-          <p className={styles['modal-subtitle']}>Наш менеджер свяжется с вами в ближайшее время</p>
-        </Modal>}
+        // <Modal onClose={onCloseModal}>
+        //   <div className={styles['success-img']}><IconComplete /></div>
+        //   <h2 className={styles['modal-title']}>Спасибо за заказ</h2>
+        //   <p className={styles['modal-subtitle']}>Наш менеджер свяжется с вами в ближайшее время</p>
+        // </Modal>}
+        <OrderPlacedModal onClose={onCloseModal} />}
     </section>
   );
 }

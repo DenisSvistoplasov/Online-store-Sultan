@@ -11,7 +11,6 @@ export function Main() {
     <main className={styles.main}>
       <Navigation />
       <Routes>
-        {/* <Route path="/" element={<CatalogPage />} /> */}
         <Route path="/" Component={()=><Navigate to='/catalog' />} />
         <Route path="/catalog/:type?" element={<CatalogPage />} />
         <Route path="/product/:id" element={<OneProductPage />} />

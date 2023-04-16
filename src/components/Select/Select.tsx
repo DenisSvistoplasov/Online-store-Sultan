@@ -13,7 +13,6 @@ interface ISelectProps {
 export function Select({ entries, onChoice, selected, className }: ISelectProps) {
   const [isOpen, setIsOpen] = useState(false);
 
-  const listRef = useRef<HTMLUListElement>(null);
 
   const choose = (value: sortingType) => {
     onChoice(value);
@@ -33,7 +32,7 @@ export function Select({ entries, onChoice, selected, className }: ISelectProps)
       </button>
 
       {isOpen &&
-        <ul className={styles.list} ref={listRef}>
+        <ul className={styles.list}>
           {entries.map((entry, index) => (
             <li className={styles.item} key={index}>
               <button className={styles.item__btn} onClick={() => choose(entry[0])}>

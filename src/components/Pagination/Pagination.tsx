@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import styles from './pagination.sass';
 import { classnames } from '../../utils/classnames';
 import { IconArrowTickYellow } from '../icons/arrow-tick_left_yellow';
@@ -18,12 +18,14 @@ export function Pagination(props: IPaginationProps) {
     className
   } = props;
 
+  const pages = useMemo(() => new Array(numberOfPages).fill(0).map((_, i) => i + 1), [numberOfPages]);
+
   const onClickPage = (page: number) => {
     onChange(page);
   };
 
   const onClickBack = () => {
-    if (currentPage - 1) {
+    if (currentPage - 1 !== 0) {
       onChange(currentPage - 1);
     }
   };
@@ -38,12 +40,12 @@ export function Pagination(props: IPaginationProps) {
     <div className={classnames(styles.wrapper, className)}>
       <button className={classnames(styles.back, 'interactive-btn')} onClick={onClickBack}><IconArrowTickYellow /></button>
       <ul className={styles.list}>
-        {new Array(numberOfPages).fill(0).map((_, index) => (
-          <li key={index} className={styles.item}>
+        {pages.map(page => (
+          <li key={page} className={styles.item}>
             <button
-              className={classnames(styles.page, { [styles.active]: index + 1 == currentPage }, 'interactive-btn')}
-              onClick={() => onClickPage(index + 1)}
-            >{index + 1}</button>
+              className={classnames(styles.page, { [styles.active]: page == currentPage }, 'interactive-btn')}
+              onClick={() => onClickPage(page)}
+            >{page}</button>
           </li>
         ))}
       </ul>

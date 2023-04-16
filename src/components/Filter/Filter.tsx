@@ -22,25 +22,22 @@ interface IFilterProps {
   shouldFilterSync: boolean;
 }
 
-export function Filter(props: IFilterProps) {
-  const {
-    sendRestrictions,
-    defaultMinPrice = 0,
-    defaultMaxPrice = 10000,
-    className,
-    staticOpen = false,
-    shouldFilterSync
-  } = props;
+export function Filter({
+  sendRestrictions,
+  defaultMinPrice = 0,
+  defaultMaxPrice = 10000,
+  className,
+  staticOpen = false,
+  shouldFilterSync
+}: IFilterProps) {
 
   const [isOpen, setIsOpen] = useState(false);
-
   const [minPrice, setMinPrice] = useState(defaultMinPrice);
   const [maxPrice, setMaxPrice] = useState(defaultMaxPrice);
-
-  const { brands, manufacturers } = useAppSelector(selectBrandsAndManufacturers);
-
   const [chosenBrands, setChosenBrands] = useState([] as string[]);
   const [chosenManufacturers, setChosenManufacturers] = useState([] as string[]);
+
+  const { brands, manufacturers } = useAppSelector(selectBrandsAndManufacturers);
 
   const onApply = () => {
     sendRestrictions({
@@ -51,7 +48,7 @@ export function Filter(props: IFilterProps) {
     });
   };
 
-  const onClear = () => {
+  const onReset = () => {
     setMinPrice(defaultMinPrice);
     setMaxPrice(defaultMaxPrice);
     setChosenBrands([]);
@@ -88,43 +85,47 @@ export function Filter(props: IFilterProps) {
     if (value >= minPrice) setMaxPrice(value);
   };
 
-  useEffect(onClear, [shouldFilterSync]);
-
   const onFocus = (e: SyntheticEvent) => (e.target as HTMLInputElement).select();
+
+  useEffect(onReset, [shouldFilterSync]);
 
   return (
     <div className={classnames(styles.filters, className)}>
-      <button className={classnames(styles.filters__title, { [styles.open]: isOpen })} onClick={() => setIsOpen(x => !x)}>ПОДБОР ПО ПАРАМЕТРАМ</button>
+      <button
+        className={classnames(styles.filters__title, { [styles.open]: isOpen })}
+        onClick={() => setIsOpen(x => !x)}
+      >ПОДБОР ПО ПАРАМЕТРАМ</button>
 
-      {(staticOpen || isOpen) && <div className={styles.dropdown}>
-        <div className={styles.price}>
-          <div className={styles.price__title}>Цена<b>₸</b></div>
-          <div className={styles.price__inputs}>
-            <input type="number" className={styles.price__input} onChange={onChangeMinPrice} onFocus={onFocus} value={minPrice} />
-            <div className={styles.dash}></div>
-            <input type="number" className={styles.price__input} onChange={onChangeMaxPrice} onFocus={onFocus} value={maxPrice} />
+      {(staticOpen || isOpen) &&
+        <div className={styles.dropdown}>
+          <div className={styles.price}>
+            <div className={styles.price__title}>Цена<b>₸</b></div>
+            <div className={styles.price__inputs}>
+              <input type="number" className={styles.price__input} onChange={onChangeMinPrice} onFocus={onFocus} value={minPrice} />
+              <div className={styles.dash}></div>
+              <input type="number" className={styles.price__input} onChange={onChangeMaxPrice} onFocus={onFocus} value={maxPrice} />
+            </div>
           </div>
-        </div>
 
-        <SearchAndPick
-          options={manufacturers}
-          chosen={chosenManufacturers}
-          title='Производитель'
-          onChange={onChangeManufacturers} />
+          <SearchAndPick
+            options={manufacturers}
+            chosen={chosenManufacturers}
+            title='Производитель'
+            onChange={onChangeManufacturers} />
 
-        <div className={styles.delimiter}></div>
+          <div className={styles.delimiter}></div>
 
-        <SearchAndPick
-          options={brands}
-          chosen={chosenBrands}
-          title='Бренд'
-          onChange={onChangeBrands} />
+          <SearchAndPick
+            options={brands}
+            chosen={chosenBrands}
+            title='Бренд'
+            onChange={onChangeBrands} />
 
-        <div className={styles.bottom}>
-          <button className={classnames(styles.apply, 'interactive-btn')} onClick={onApply}>Показать</button>
-          <button className={classnames(styles.clear, 'interactive-btn')} onClick={onClear}><IconTrashCan /></button>
-        </div>
-      </div>}
+          <div className={styles.bottom}>
+            <button className={classnames(styles.apply, 'interactive-btn')} onClick={onApply}>Показать</button>
+            <button className={classnames(styles.clear, 'interactive-btn')} onClick={onReset}><IconTrashCan /></button>
+          </div>
+        </div>}
     </div>
   );
 }

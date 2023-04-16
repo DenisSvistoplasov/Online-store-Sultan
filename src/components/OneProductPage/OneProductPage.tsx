@@ -1,11 +1,9 @@
-import React from 'react';
 import styles from './oneproductpage.sass';
 import { useParams } from 'react-router-dom';
 import { Container } from '../Container';
 import { IconBox } from '../icons/box';
 import { IconBottle } from '../icons/bottle';
 import { IconCart } from '../icons/cart';
-import { IProduct } from '../../data/catalog';
 import { IconShare } from '../icons/share';
 import { IconDownload } from '../icons/download';
 import { useAppDispatch, useAppSelector } from '../../hooks/storeHooks';

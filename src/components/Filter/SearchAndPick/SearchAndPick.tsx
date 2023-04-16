@@ -8,7 +8,7 @@ interface ISearchAndPickProps {
   title: string;
   options: { count: number; value: string; }[];
   chosen?: string[];
-  toShow?: number;
+  toShowLimit?: number;
   onChange: (value: string) => void;
 }
 
@@ -17,32 +17,31 @@ export function SearchAndPick(props: ISearchAndPickProps) {
     title,
     options,
     chosen = [],
-    toShow = useBreakpoint() === 'mobile' ? 2 : 4,
+    toShowLimit = useBreakpoint() === 'mobile' ? 2 : 4,
     onChange
   } = props;
 
-  const [_options, setOptions] = useState(options);
-  const [_toShow, setToShow] = useState(toShow);
+  const [optionsToShow, setOptionsToShow] = useState(options);
+  const [optionsCount, setOptionsCount] = useState(toShowLimit);
   const [isAllShown, setIsAllShown] = useState(false);
 
-  useEffect(() => { setOptions(options); }, [options]);
+  useEffect(() => { setOptionsToShow(options); }, [options]);
 
   const onReveal = () => {
-    setToShow(Infinity);
+    setOptionsCount(Infinity);
     setIsAllShown(true);
   };
 
   const onInput = (e: FormEvent<HTMLInputElement>) => {
-    const value = (e.target as HTMLInputElement).value;
+    const value = (e.target as HTMLInputElement).value.trim();
 
-    if (value.trim()) {
-      const filteredOptions = options.filter(option => option.value.toLocaleLowerCase().includes(value.toLocaleLowerCase()));
-      setOptions(filteredOptions);
+    if (value) {
+      const filteredOptions = options.filter(option => option.value.toLowerCase().includes(value.toLowerCase()));
+      setOptionsToShow(filteredOptions);
     }
     else {
-      setOptions(options);
+      setOptionsToShow(options);
     }
-
   };
 
   const onCheckboxChange = (e: SyntheticEvent) => {
@@ -56,20 +55,28 @@ export function SearchAndPick(props: ISearchAndPickProps) {
 
       <InputWithButton icon={<IconSearchLight />} placeholder='Поиск...' className={styles.input} onInput={onInput} />
 
-      <ul className={styles.list}>
-        {_options.slice(0, _toShow).map(option => (
-          <li className={styles.item} key={option.value}>
-            <label className={styles.label}>
-              <input type="checkbox" className={styles.checkbox} value={option.value} checked={chosen.includes(option.value)} onChange={onCheckboxChange} />
-              <div className={styles['custom-checkbox']}></div>
-              <span className={styles['option-name']}>{option.value}<span className={styles['option-count']}>({option.count})</span></span>
+      {optionsToShow.length ?
+        <ul className={styles.list}>
+          {optionsToShow.slice(0, optionsCount).map(option => (
+            <li className={styles.item} key={option.value}>
+              <label className={styles.label}>
+                <input type="checkbox"
+                  className={styles.checkbox}
+                  value={option.value}
+                  checked={chosen.includes(option.value)}
+                  onChange={onCheckboxChange} />
+                <div className={styles['custom-checkbox']}></div>
+                <span className={styles['option-name']}>{option.value}</span>
+                <span className={styles['option-count']}>({option.count})</span>
+              </label>
+            </li>
+          ))}
+        </ul> :
+        <div className={styles['not-found']}>Не найдено</div>
+      }
 
-            </label>
-          </li>
-        ))}
-      </ul>
-
-      {!isAllShown && _toShow < _options.length && <button className={styles.rest} onClick={onReveal}>Показать все <span className={styles.rest__icon}>▼</span></button>}
+      {!isAllShown && optionsCount < optionsToShow.length &&
+        <button className={styles.rest} onClick={onReveal}>Показать все <span className={styles.rest__icon}>▼</span></button>}
     </div>
   );
 }

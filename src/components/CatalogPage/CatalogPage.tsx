@@ -7,7 +7,7 @@ import { Filter, IFilterRestrictions } from '../Filter';
 import { useAppDispatch, useAppSelector } from '../../hooks/storeHooks';
 import { selectProducts, getProducts } from '../../store/slices/productsSlice';
 import { Pagination } from '../Pagination';
-import { pickPaginationPart } from '../../utils/pickPaginationPart';
+import { pickPartForPagination } from '../../utils/pickPartForPagination';
 import { IProduct, productTypes } from '../../data/catalog';
 import { useBreakpoint } from '../../hooks/useBreakpoint';
 import { IconProductViewType } from '../icons/productViewType';
@@ -21,12 +21,12 @@ export type sortingType = 'name up' | 'name down' | 'price up' | 'price down';
 
 const INITIAL_SORTING: sortingType = 'name up';
 const INITIAL_PAGE = 1;
-const PRODUCTS_PER_PAGE = 5;
+const PRODUCTS_PER_PAGE_MOBILE = 5;
 const PRODUCTS_PER_PAGE_DESKTOP = 6;
 
 export function CatalogPage() {
   const breakpoint = useBreakpoint();
-  const productsPerPage = breakpoint === 'mobile' ? PRODUCTS_PER_PAGE : PRODUCTS_PER_PAGE_DESKTOP;
+  const productsPerPage = breakpoint === 'mobile' ? PRODUCTS_PER_PAGE_MOBILE : PRODUCTS_PER_PAGE_DESKTOP;
   const products = useAppSelector(selectProducts);
   const productType = useParams().type as productTypes;
 
@@ -85,15 +85,13 @@ export function CatalogPage() {
   return (
     <section className={styles.section} ref={sectionRef}>
       <Container>
-
         <div className={styles.inner}>
-
           <div className={styles.inner__top}>
             <h1 className={styles.title}>Косметика и гигиена</h1>
             {breakpoint === 'desktop' &&
               <>
                 <div className={styles['sorting-and-view']}>
-                  <Sorting sortingType={sortingType} onChoice={setSortingType} />
+                  <Sorting currentType={sortingType} onChoice={setSortingType} />
                   <IconProductViewType />
                 </div>
                 <ProductTypes className={styles.types} currentType={productType} />
@@ -109,7 +107,7 @@ export function CatalogPage() {
 
 
           {breakpoint === 'mobile' &&
-            <Sorting sortingType={sortingType} onChoice={setSortingType} />
+            <Sorting currentType={sortingType} onChoice={setSortingType} />
           }
 
           <div className={styles.inner__content}>
@@ -121,10 +119,8 @@ export function CatalogPage() {
               shouldPaginationSync={shouldPaginationSync}
               parentContainer={sectionRef.current}
             />
-
             <p className={styles['bottom-text']}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam interdum ut justo, vestibulum sagittis iaculis iaculis. Quis mattis vulputate feugiat massa vestibulum duis. Faucibus consectetur aliquet sed pellentesque consequat consectetur congue mauris venenatis. Nunc elit, dignissim sed nulla ullamcorper enim, malesuada.</p>
           </div>
-
         </div>
       </Container>
     </section>
