@@ -41,8 +41,8 @@ export function OneProductPage() {
     types: type,
     isPopular,
   } = productData;
-
-  const onPlus = () => dispatch(plusToCart(id));
+  console.log('RENDER');
+  const onPlus = () =>  dispatch(plusToCart(id));
   const onMinus = () => dispatch(minusFromCart(id));
   const onRemove = () => dispatch(removeFromCart(id));
 
@@ -70,7 +70,7 @@ export function OneProductPage() {
             <Counter className={styles.counter} count={count} onMinus={onMinus} onPlus={onPlus} />
             {count ?
               <button className={classnames(styles.remove, 'interactive-btn')} onClick={onRemove}>Убрать<IconCart /></button> :
-              <button className={classnames(styles.add, 'interactive-btn')} onClick={onPlus}>В корзину<IconCart /></button>
+              <button className={classnames(styles.add, 'interactive-btn')} onClick={onPlus} data-testid="addBtn">В корзину<IconCart /></button>
             }
             <div className={styles.share}><IconShare /></div>
             <div className={styles['promotion-and-price-list']}>

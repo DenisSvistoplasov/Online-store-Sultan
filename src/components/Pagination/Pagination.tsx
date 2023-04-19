@@ -38,7 +38,7 @@ export function Pagination(props: IPaginationProps) {
 
   return (
     <div className={classnames(styles.wrapper, className)}>
-      <button className={classnames(styles.back, 'interactive-btn')} onClick={onClickBack}><IconArrowTickYellow /></button>
+      <button className={classnames(styles.back, 'interactive-btn')} onClick={onClickBack} data-testid="back"><IconArrowTickYellow /></button>
       <ul className={styles.list}>
         {pages.map(page => (
           <li key={page} className={styles.item}>
@@ -49,7 +49,7 @@ export function Pagination(props: IPaginationProps) {
           </li>
         ))}
       </ul>
-      <button className={classnames(styles.forward, 'interactive-btn')} onClick={onClickForward}><IconArrowTickYellow /></button>
+      <button className={classnames(styles.forward, 'interactive-btn')} onClick={onClickForward} data-testid="forward"><IconArrowTickYellow /></button>
     </div>
   );
 }

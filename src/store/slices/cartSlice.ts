@@ -2,19 +2,22 @@ import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { IProduct } from "../../data/catalog";
 import { RootState } from "../store";
 import defaultBasket from "../../data/defaultBasket.json";
+import { LocalStorageMock } from "../../../tests/localStorageMock";
 
-interface ICartState {
+export interface ICartState {
   productsIds: { [id: string]: number; };
   totalCount: number;
 }
 
 const LOCAL_STORAGE_KEY = 'cart-data';
 
-const localCart = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY) || 'null');
+const _localStorage = typeof localStorage !== 'undefined' ? localStorage : new LocalStorageMock();
+
+const localCart = JSON.parse(_localStorage.getItem(LOCAL_STORAGE_KEY) || 'null');
 
 const initialState = localCart as ICartState || defaultBasket;
 
-const saveLocally = (state: ICartState) => localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(state));
+const saveLocally = (state: ICartState) => _localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(state));
 
 const cartSlice = createSlice({
   name: 'cart',
